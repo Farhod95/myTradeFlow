@@ -18,5 +18,9 @@ namespace myTradeFlow.Repositories.Categories
 
             return category;
         }
+
+        public IQueryable<Category> SelectAllCategoriesAsync()=> 
+            this.applicationDbContext.Categories;
+        
     }
 }

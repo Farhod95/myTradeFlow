@@ -18,5 +18,8 @@ namespace myTradeFlow.Repositories.Brands
 
             return brand;
         }
+
+        public IQueryable<Brand> SelectAllBrands()=>
+            this.applicationDbContext.Brands;
     }
 }
