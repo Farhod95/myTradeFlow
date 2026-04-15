@@ -47,5 +47,26 @@ namespace myTradeFlow.Services.Brands
 
             return myBrand;
         }
+
+        public ValueTask<Brand> ModifyBrandAsync(Brand brand)
+        {
+            if(brand == null)
+            {
+                throw new ValidationException("Brand bo'sh bo'lishi mumkin emas");
+            }
+            if(string.IsNullOrWhiteSpace(brand.Name))
+            {
+                throw new ValidationException("Brand nomi bo'sh bo'lishi mumkin emas");
+            }
+
+            var myBrand = this.brandRepository.UpdateBrandAsync(brand);
+
+            if(myBrand == null)
+            {
+                throw new ValidationException($"Brands jadvalida {brand.Id} Idli topilmadi !");
+            }
+
+            return myBrand;
+        }
     }
 }
