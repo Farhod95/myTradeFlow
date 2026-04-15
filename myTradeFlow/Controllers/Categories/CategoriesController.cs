@@ -97,5 +97,28 @@ namespace myTradeFlow.Controllers.Categories
                 return StatusCode(500, "Ichki server xatosi yuz berdi.");
             }
         }
+
+        [HttpDelete]
+        public async ValueTask<ActionResult<Category>> DeleteCategoryAsync(Guid categoryId)
+        {
+            try
+            {
+                var myCategory = await this.categoryService.RemoveCategoryAsync(categoryId);
+
+                return Ok(myCategory);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ichki server xatosi yuz berdi.");
+            }
+        }
     }
 }

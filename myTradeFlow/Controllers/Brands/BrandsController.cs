@@ -56,14 +56,14 @@ namespace myTradeFlow.Controllers.Brands
             try
             {
                 var brand = await this.brandService.RetrieveBrandByIdAsync(brandId);
-                
+
                 return Ok(brand);
             }
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
             }
-            catch(NotFoundException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -79,6 +79,29 @@ namespace myTradeFlow.Controllers.Brands
             try
             {
                 var myBrand = await this.brandService.ModifyBrandAsync(brand);
+
+                return Ok(myBrand);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ichki server xatosi yuz berdi.");
+            }
+        }
+
+        [HttpDelete]
+        public async ValueTask<ActionResult<Brand>> DeleteBrandAsync(Guid brandId)
+        {
+            try
+            {
+                var myBrand = await this.brandService.RemoveBrandAsync(brandId);
 
                 return Ok(myBrand);
             }
