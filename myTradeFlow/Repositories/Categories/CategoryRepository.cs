@@ -21,6 +21,8 @@ namespace myTradeFlow.Repositories.Categories
 
         public IQueryable<Category> SelectAllCategoriesAsync()=> 
             this.applicationDbContext.Categories;
-        
+
+        public async ValueTask<Category> SelectCategoryByIdAsync(Guid categoryId) =>
+            await this.applicationDbContext.Categories.FindAsync(categoryId);
     }
 }
