@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using myTradeFlow.Models.Brands;
 using myTradeFlow.Services.Brands;
 using System.ComponentModel.DataAnnotations;
@@ -24,9 +25,24 @@ namespace myTradeFlow.Controllers.Brands
 
                 return StatusCode(201, myBrand);
             }
-            catch(ValidationException ex)
+            catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ichki server xatosi yuz berdi.");
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Brand>>> GetAllBrandsAsync()
+        {
+            try
+            {
+                var brandsQuery = this.brandService.RetrieveAllBrands();
+                var brands = await brandsQuery.ToListAsync();
+                return StatusCode(201, brands);
             }
             catch (Exception)
             {
