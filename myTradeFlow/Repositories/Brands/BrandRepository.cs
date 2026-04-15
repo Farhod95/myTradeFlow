@@ -34,8 +34,9 @@ namespace myTradeFlow.Repositories.Brands
             return brand;
         }
 
-        public async ValueTask<Brand> DeleteBrandAsync(Brand brand)
+        public async ValueTask<Brand> DeleteBrandAsync(Guid brandId)
         {
+            var brand = new Brand { Id = brandId };
             this.applicationDbContext.Entry(brand).State = EntityState.Deleted;
             await this.applicationDbContext.SaveChangesAsync();
 

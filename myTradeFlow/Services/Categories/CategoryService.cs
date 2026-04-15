@@ -69,5 +69,21 @@ namespace myTradeFlow.Services.Categories
             return myCategory;
         }
 
+        public async ValueTask<Category> RemoveCategoryAsync(Guid categoryId)
+        {
+            if(categoryId == Guid.Empty)
+            {
+                throw new ValidationException("Category Id bo'sh bo'lishi mumkin emas !");
+            }
+
+            var myCategory = await this.categoryRepository.DeleteCategoryAsync(categoryId);
+
+            if(myCategory == null)
+            {
+                throw new NotFoundException("Categorys jadvalida bu {categoryId} Idli category topilmadi!");
+            }
+
+            return myCategory;
+        }
     }
 }

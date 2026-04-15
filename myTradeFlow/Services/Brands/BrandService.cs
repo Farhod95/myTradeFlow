@@ -68,5 +68,22 @@ namespace myTradeFlow.Services.Brands
 
             return myBrand;
         }
+
+        public ValueTask<Brand> RemoveBrandAsync(Guid brandId)
+        {
+            if(brandId == Guid.Empty)
+            {
+                throw new ValidationException("Brand Id bo'sh bo'lishi mumkin emas");
+            }
+
+            var myBrand = this.brandRepository.DeleteBrandAsync(brandId);
+
+            if(myBrand == null)
+            {
+                throw new NotFoundException($"Brands jadvalida {brandId} Idli topilmadi !");
+            }
+
+            return myBrand;
+        }
     }
 }
