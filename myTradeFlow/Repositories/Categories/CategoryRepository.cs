@@ -34,8 +34,9 @@ namespace myTradeFlow.Repositories.Categories
             return category;
         }
 
-        public async ValueTask<Category> DeleteCategoryAsync(Category category)
+        public async ValueTask<Category> DeleteCategoryAsync(Guid categoryID)
         {
+            var category = new Category { Id = categoryID };
             this.applicationDbContext.Entry(category).State = EntityState.Deleted;
             await this.applicationDbContext.SaveChangesAsync();
 

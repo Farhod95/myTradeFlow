@@ -8,6 +8,6 @@ namespace myTradeFlow.Repositories.Categories
         IQueryable<Category> SelectAllCategoriesAsync();
         ValueTask<Category> SelectCategoryByIdAsync(Guid categoryId);
         ValueTask<Category> UpdateCategoryAsync(Category category);
-        ValueTask<Category> DeleteCategoryAsync(Category category);
+        ValueTask<Category> DeleteCategoryAsync(Guid categoryID);
     }
 }
