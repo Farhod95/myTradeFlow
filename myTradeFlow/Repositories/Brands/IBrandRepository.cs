@@ -8,5 +8,6 @@ namespace myTradeFlow.Repositories.Brands
         IQueryable<Brand> SelectAllBrands();
         ValueTask<Brand> SelectBrandByIdAsync(Guid brandId);
         ValueTask<Brand> UpdateBrandAsync(Brand brand);
+        ValueTask<Brand> DeleteBrandAsync(Brand brand);
     }
 }
