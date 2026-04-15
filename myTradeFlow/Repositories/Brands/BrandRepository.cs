@@ -24,5 +24,13 @@ namespace myTradeFlow.Repositories.Brands
 
         public async ValueTask<Brand> SelectBrandByIdAsync(Guid brandId) =>
             await applicationDbContext.Brands.FindAsync(brandId);
+
+        public async ValueTask<Brand> UpdateBrandAsync(Brand brand)
+        {
+            this.applicationDbContext.Entry(brand).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await this.applicationDbContext.SaveChangesAsync();
+
+            return brand;
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace myTradeFlow.Repositories.Brands
         ValueTask<Brand> InsertBrandAsync(Brand brand);
         IQueryable<Brand> SelectAllBrands();
         ValueTask<Brand> SelectBrandByIdAsync(Guid brandId);
+        ValueTask<Brand> UpdateBrandAsync(Brand brand);
     }
 }

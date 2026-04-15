@@ -7,5 +7,6 @@ namespace myTradeFlow.Repositories.Categories
         ValueTask<Category> InsertCategoryAsync(Category category);
         IQueryable<Category> SelectAllCategoriesAsync();
         ValueTask<Category> SelectCategoryByIdAsync(Guid categoryId);
+        ValueTask<Category> UpdateCategoryAsync(Category category);
     }
 }
