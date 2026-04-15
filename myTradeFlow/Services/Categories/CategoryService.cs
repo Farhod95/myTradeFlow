@@ -29,5 +29,21 @@ namespace myTradeFlow.Services.Categories
 
         public IQueryable<Category> RetrieveAllCategories()=>
             this.categoryService.RetrieveAllCategories();
+
+        public async ValueTask<Category> RetrieveCategoryByIdAsync(Guid categoryId)
+        {
+            if(categoryId == Guid.Empty)
+            {
+                throw new ValidationException("Category Id bo'sh bo'lishi mumkin emas !");
+            }
+
+            var myCategory = await categoryService.RetrieveCategoryByIdAsync(categoryId);
+            if (myCategory == null)
+            {
+                throw new NotFoundException($"Categorys jadvalida {categoryId} Idli category topilmadi!");
+            }
+
+            return myCategory;
+        }
     }
 }

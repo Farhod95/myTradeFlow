@@ -6,5 +6,6 @@ namespace myTradeFlow.Services.Brands
     {
         ValueTask<Brand> AddBrandAsync(Brand brand);
         IQueryable<Brand> RetrieveAllBrands();
+        ValueTask<Brand> RetrieveBrandByIdAsync(Guid brandId);
     }
 }
