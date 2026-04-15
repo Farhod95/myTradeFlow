@@ -26,5 +26,8 @@ namespace myTradeFlow.Services.Categories
 
             return await categoryService.AddCategoryAsync(category);
         }
+
+        public IQueryable<Category> RetrieveAllCategories()=>
+            this.categoryService.RetrieveAllCategories();
     }
 }

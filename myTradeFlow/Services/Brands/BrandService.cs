@@ -27,5 +27,8 @@ namespace myTradeFlow.Services.Brands
 
             return await this.brandRepository.InsertBrandAsync(brand);
         }
+
+        public IQueryable<Brand> RetrieveAllBrands()=>
+            this.brandRepository.SelectAllBrands();
     }
 }
