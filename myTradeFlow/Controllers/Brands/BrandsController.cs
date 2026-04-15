@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using myTradeFlow.Models.Brands;
+using myTradeFlow.Models.Exceptions;
 using myTradeFlow.Services.Brands;
-using System.ComponentModel.DataAnnotations;
 
 namespace myTradeFlow.Controllers.Brands
 {
@@ -42,7 +42,30 @@ namespace myTradeFlow.Controllers.Brands
             {
                 var brandsQuery = this.brandService.RetrieveAllBrands();
                 var brands = await brandsQuery.ToListAsync();
-                return StatusCode(201, brands);
+                return StatusCode(200, brands);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ichki server xatosi yuz berdi.");
+            }
+        }
+
+        [HttpGet("{brandId}")]
+        public async ValueTask<ActionResult<Brand>> GetBrandByIdAsync(Guid brandId)
+        {
+            try
+            {
+                var brand = await this.brandService.RetrieveBrandByIdAsync(brandId);
+                
+                return Ok(brand);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(NotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception)
             {

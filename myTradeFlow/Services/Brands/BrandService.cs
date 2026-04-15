@@ -42,13 +42,13 @@ namespace myTradeFlow.Services.Brands
 
             if(myBrand == null)
             {
-                throw new ValidationException($"Brands jadvalida {brandId} Idli topilmadi !");
+                throw new NotFoundException($"Brands jadvalida {brandId} Idli topilmadi !");
             }
 
             return myBrand;
         }
 
-        public ValueTask<Brand> ModifyBrandAsync(Brand brand)
+        public async ValueTask<Brand> ModifyBrandAsync(Brand brand)
         {
             if(brand == null)
             {
@@ -59,7 +59,7 @@ namespace myTradeFlow.Services.Brands
                 throw new ValidationException("Brand nomi bo'sh bo'lishi mumkin emas");
             }
 
-            var myBrand = this.brandRepository.UpdateBrandAsync(brand);
+            var myBrand =await this.brandRepository.UpdateBrandAsync(brand);
 
             if(myBrand == null)
             {
@@ -69,14 +69,14 @@ namespace myTradeFlow.Services.Brands
             return myBrand;
         }
 
-        public ValueTask<Brand> RemoveBrandAsync(Guid brandId)
+        public async ValueTask<Brand> RemoveBrandAsync(Guid brandId)
         {
             if(brandId == Guid.Empty)
             {
                 throw new ValidationException("Brand Id bo'sh bo'lishi mumkin emas");
             }
 
-            var myBrand = this.brandRepository.DeleteBrandAsync(brandId);
+            var myBrand =await this.brandRepository.DeleteBrandAsync(brandId);
 
             if(myBrand == null)
             {

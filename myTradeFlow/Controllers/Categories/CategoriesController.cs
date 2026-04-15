@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using myTradeFlow.Models.Categories;
+using myTradeFlow.Models.Exceptions;
 using myTradeFlow.Services.Categories;
-using System.ComponentModel.DataAnnotations;
 
 namespace myTradeFlow.Controllers.Categories
 {
@@ -25,7 +25,7 @@ namespace myTradeFlow.Controllers.Categories
 
                 return StatusCode(201, myCategory);
             }
-            catch(ValidationException  ex)
+            catch (ValidationException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -45,6 +45,29 @@ namespace myTradeFlow.Controllers.Categories
                 var categories = await categoriesQuery.ToListAsync();
 
                 return StatusCode(201, categories);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ichki server xatosi yuz berdi.");
+            }
+        }
+
+        [HttpGet("{categoryId}")]
+        public async ValueTask<ActionResult<Category>> GetCategoryByIdAsync(Guid categoryId)
+        {
+            try
+            {
+                var myCategory = await this.categoryService.RetrieveCategoryByIdAsync(categoryId);
+
+                return Ok(myCategory);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception)
             {
