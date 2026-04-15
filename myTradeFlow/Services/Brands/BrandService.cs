@@ -30,5 +30,22 @@ namespace myTradeFlow.Services.Brands
 
         public IQueryable<Brand> RetrieveAllBrands()=>
             this.brandRepository.SelectAllBrands();
+
+        public async ValueTask<Brand> RetrieveBrandByIdAsync(Guid brandId)
+        {
+            if(brandId == Guid.Empty)
+            {
+                throw new ValidationException("Brand Id bo'sh bo'lishi mumkin emas");
+            }
+
+            var myBrand =  await this.brandRepository.SelectBrandByIdAsync(brandId);
+
+            if(myBrand == null)
+            {
+                throw new ValidationException($"Brands jadvalida {brandId} Idli topilmadi !");
+            }
+
+            return myBrand;
+        }
     }
 }
