@@ -1,4 +1,5 @@
-﻿using myTradeFlow.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using myTradeFlow.Data;
 using myTradeFlow.Models.Categories;
 
 namespace myTradeFlow.Repositories.Categories
@@ -24,5 +25,13 @@ namespace myTradeFlow.Repositories.Categories
 
         public async ValueTask<Category> SelectCategoryByIdAsync(Guid categoryId) =>
             await this.applicationDbContext.Categories.FindAsync(categoryId);
+
+        public async ValueTask<Category> UpdateCategoryAsync(Category category)
+        {
+            this.applicationDbContext.Entry(category).State = EntityState.Modified;
+            await this.applicationDbContext.SaveChangesAsync();
+
+            return category;
+        }
     }
 }
