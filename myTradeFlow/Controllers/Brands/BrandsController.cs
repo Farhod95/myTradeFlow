@@ -72,5 +72,28 @@ namespace myTradeFlow.Controllers.Brands
                 return StatusCode(500, "Ichki server xatosi yuz berdi.");
             }
         }
+
+        [HttpPut]
+        public async ValueTask<ActionResult<Brand>> PutBrandAsync(Brand brand)
+        {
+            try
+            {
+                var myBrand = await this.brandService.ModifyBrandAsync(brand);
+
+                return Ok(myBrand);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ichki server xatosi yuz berdi.");
+            }
+        }
     }
 }

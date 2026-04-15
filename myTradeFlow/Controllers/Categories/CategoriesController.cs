@@ -74,5 +74,28 @@ namespace myTradeFlow.Controllers.Categories
                 return StatusCode(500, "Ichki server xatosi yuz berdi.");
             }
         }
+
+        [HttpPut]
+        public async ValueTask<ActionResult<Category>> PutCategoryAsync(Category category)
+        {
+            try
+            {
+                var myCategory = await this.categoryService.ModifyCategoryAsync(category);
+
+                return Ok(myCategory);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ichki server xatosi yuz berdi.");
+            }
+        }
     }
 }
