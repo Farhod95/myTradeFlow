@@ -5,5 +5,6 @@ namespace myTradeFlow.Services.Categories
     public interface ICategoryService
     {
         ValueTask<Category> AddCategoryAsync(Category category);
+        IQueryable<Category> RetrieveAllCategories();
     }
 }
