@@ -1,4 +1,5 @@
-﻿using myTradeFlow.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using myTradeFlow.Data;
 using myTradeFlow.Models.Brands;
 
 namespace myTradeFlow.Repositories.Brands
@@ -13,7 +14,7 @@ namespace myTradeFlow.Repositories.Brands
 
         public async ValueTask<Brand> InsertBrandAsync(Brand brand)
         {
-            await this.applicationDbContext.Brands.AddAsync(brand);
+            this.applicationDbContext.Entry(brand).State = EntityState.Added;
             await this.applicationDbContext.SaveChangesAsync();
 
             return brand;
@@ -28,6 +29,14 @@ namespace myTradeFlow.Repositories.Brands
         public async ValueTask<Brand> UpdateBrandAsync(Brand brand)
         {
             this.applicationDbContext.Entry(brand).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await this.applicationDbContext.SaveChangesAsync();
+
+            return brand;
+        }
+
+        public async ValueTask<Brand> DeleteBrandAsync(Brand brand)
+        {
+            this.applicationDbContext.Entry(brand).State = EntityState.Deleted;
             await this.applicationDbContext.SaveChangesAsync();
 
             return brand;

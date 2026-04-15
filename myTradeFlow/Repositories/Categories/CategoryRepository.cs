@@ -14,7 +14,7 @@ namespace myTradeFlow.Repositories.Categories
 
         public async ValueTask<Category> InsertCategoryAsync(Category category)
         {
-            await this.applicationDbContext.Categories.AddAsync(category);
+            this.applicationDbContext.Entry(category).State = EntityState.Added;
             await this.applicationDbContext.SaveChangesAsync();
 
             return category;
@@ -29,6 +29,14 @@ namespace myTradeFlow.Repositories.Categories
         public async ValueTask<Category> UpdateCategoryAsync(Category category)
         {
             this.applicationDbContext.Entry(category).State = EntityState.Modified;
+            await this.applicationDbContext.SaveChangesAsync();
+
+            return category;
+        }
+
+        public async ValueTask<Category> DeleteCategoryAsync(Category category)
+        {
+            this.applicationDbContext.Entry(category).State = EntityState.Deleted;
             await this.applicationDbContext.SaveChangesAsync();
 
             return category;
