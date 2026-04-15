@@ -1,6 +1,9 @@
-﻿namespace myTradeFlow.Services.Brands
+﻿using myTradeFlow.Models.Brands;
+
+namespace myTradeFlow.Services.Brands
 {
     public interface IBrandService
     {
+        ValueTask<Brand> AddBrandAsync(Brand brand);
     }
 }

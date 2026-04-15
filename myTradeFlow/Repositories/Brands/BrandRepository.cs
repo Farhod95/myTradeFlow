@@ -28,7 +28,7 @@ namespace myTradeFlow.Repositories.Brands
 
         public async ValueTask<Brand> UpdateBrandAsync(Brand brand)
         {
-            this.applicationDbContext.Entry(brand).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            this.applicationDbContext.Entry(brand).State = EntityState.Modified;
             await this.applicationDbContext.SaveChangesAsync();
 
             return brand;

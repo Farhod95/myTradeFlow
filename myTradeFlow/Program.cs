@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using myTradeFlow.Data;
+using myTradeFlow.Repositories.Brands;
+using myTradeFlow.Repositories.Categories;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,8 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddTransient<IBrandRepository, BrandRepository>();
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
 
