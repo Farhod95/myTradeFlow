@@ -19,7 +19,10 @@ namespace myTradeFlow.Repositories.Brands
             return brand;
         }
 
-        public IQueryable<Brand> SelectAllBrands()=>
+        public IQueryable<Brand> SelectAllBrands() =>
             this.applicationDbContext.Brands;
+
+        public async ValueTask<Brand> SelectBrandByIdAsync(Guid brandId) =>
+            await applicationDbContext.Brands.FindAsync(brandId);
     }
 }
